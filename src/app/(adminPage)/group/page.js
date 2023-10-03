@@ -32,21 +32,25 @@ export default async function viewGroup() {
         <h1 className="text-5xl mb-10">Group</h1>
 
         <AddGroup />
-        <table className="table w-full table-zebra mt-5">
+        <table className="table-auto border-collapse border border-slate-300 w-full mt-5 shadow-2xl">
           <thead>
-            <tr>
-              <th>#</th>
-              <th>Group Description</th>
-              <th>Action</th>
+            <tr className="bg-gray-400">
+              <th className="border border-slate-300 px-2">#</th>
+              <th className="border border-slate-300 px-2">
+                Group Description
+              </th>
+              <th className="border border-slate-300 px-2">Action</th>
             </tr>
           </thead>
           <tbody>
             {groups ? (
               groups.map((group, index) => (
-                <tr key={group.id}>
-                  <td>{index + 1}</td>
-                  <td>{group.description}</td>
-                  <td className="flex">
+                <tr className="bg-gray-200" key={group.id}>
+                  <td className="border border-slate-300 px-2">{index + 1}</td>
+                  <td className="border border-slate-300 px-2">
+                    {group.description}
+                  </td>
+                  <td className="flex ">
                     <div className="mr-1">{/* <EditGroup {...group} /> */}</div>
                     <div>
                       <DeleteGroup {...group} />

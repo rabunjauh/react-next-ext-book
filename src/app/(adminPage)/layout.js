@@ -1,7 +1,7 @@
 import Nav from "../components/Nav";
 export default function adminPageLayout({ children }) {
   return (
-    <div>
+    <div className="bg-white">
       <Nav />
       <section>{children}</section>
     </div>

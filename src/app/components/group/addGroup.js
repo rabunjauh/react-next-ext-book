@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
@@ -7,13 +6,12 @@ import { useForm, useFieldArray, Control, useWatch } from "react-hook-form";
 
 export default function AddGroup() {
   const [modal, setModal] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [alert, setAlert] = useState(false);
   const router = useRouter();
   const {
     register,
-    resetField,
+    reset,
     handleSubmit,
     formState: { errors },
     control,
@@ -33,7 +31,9 @@ export default function AddGroup() {
 
   const toggle = () => {
     setModal(!modal);
-    resetField("description");
+    reset({
+      group: [{ description: "" }],
+    });
   };
 
   const closeAlert = () => {
@@ -74,98 +74,101 @@ export default function AddGroup() {
   return (
     <div>
       {alert ? (
-        <div className="mb-3 bg-sky-600 text-white text-lg px-3 py-5 rounded-md h-16 flex justify-between">
+        <div className="w-60 fixed top-5 right-1 bg-gray-400 text-white px-2 rounded-l-md h-10 flex justify-between items-center">
           <span className="">{message}</span>
-          <button
-            className="btn btn-circle btn-info btn-xs text-white"
-            onClick={closeAlert}
-          >
+          <button className="text-white font-thin" onClick={closeAlert}>
             x
           </button>
         </div>
-      ) : (
-        ""
-      )}
-      <button className="btn btn-outline" onClick={toggle}>
+      ) : null}
+      <button
+        className="border-2 border-black rounded-lg px-2 hover:border-2 hover:border-white hover:bg-black hover:text-white"
+        onClick={toggle}
+      >
         Add Group
       </button>
 
-      <input
-        type="checkbox"
-        checked={modal}
-        className="modal-toggle"
-        onChange={toggle}
-      />
-
-      <div className="modal">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">Add New Group</h3>
-          <form onSubmit={handleSubmit(submit)}>
-            <table className="table w-full mt-5">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Group Description</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {fields.map((field, index) => {
-                  return (
-                    <tr key={field.id}>
-                      <td>{index + 1}</td>
-                      <td>
-                        <input
-                          type="text"
-                          {...register(`group.${index}.description`, {
-                            required: true,
-                          })}
-                          className="input input-bordered w-full mb-2 mr-2"
-                        />
-                        <p>
-                          {errors.group?.[index]?.description && (
-                            <p>This can't be empty</p>
-                          )}
-                        </p>
-                      </td>
-                      <td>
-                        {index > 0 ? (
-                          <button
-                            type="button"
-                            className="btn btn-outline btn-sm"
-                            onClick={() => remove(index)}
-                          >
-                            Remove
-                          </button>
-                        ) : (
-                          ""
-                        )}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-            <div className="modal-action">
+      {modal ? (
+        <div className="fixed inset-0 flex justify-center items-center transition-colors visible bg-black/70">
+          <div className="bg-white p-5 rounded-lg">
+            <h3 className="font-bold text-lg">Add New Group</h3>
+            <div>
               <button
                 type="button"
-                className="btn btn-outline btn-sm"
+                className="text-xs border-2 border-black rounded-full px-2 hover:border-2 hover:border-white hover:bg-black hover:text-white"
                 onClick={() => append()}
               >
                 Append
               </button>
             </div>
-            <div>
-              <button type="submit" className="btn btn-outline btn-sm">
-                Submit
-              </button>
-              <label className="btn btn-outline btn-sm" onClick={toggle}>
-                Close
-              </label>
-            </div>
-          </form>
+            <form onSubmit={handleSubmit(submit)}>
+              <table className="table-auto border-collapse border border-slate-300 w-full my-2 shadow-md">
+                <thead>
+                  <tr className="bg-gray-400">
+                    <th className="border border-slate-300 px-2">#</th>
+                    <th className="border border-slate-300 px-2">
+                      Group Description
+                    </th>
+                    <th className="border border-slate-300 px-2">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {fields.map((field, index) => {
+                    return (
+                      <tr className="bg-gray-200" key={field.id}>
+                        <td className="border border-slate-300 px-2">
+                          {index + 1}
+                        </td>
+                        <td className="border border-slate-300 p-2">
+                          <input
+                            type="text"
+                            {...register(`group.${index}.description`, {
+                              required: true,
+                            })}
+                            className="w-full mb-2 mr-2"
+                          />
+                          <p>
+                            {errors.group?.[index]?.description && (
+                              <p>This can't be empty</p>
+                            )}
+                          </p>
+                        </td>
+                        <td className="border border-slate-300 px-2">
+                          {index > 0 ? (
+                            <button
+                              type="button"
+                              className="text-xs border-2 px-2 border-black rounded-full hover:border-2 hover:border-white hover:bg-black hover:text-white"
+                              onClick={() => remove(index)}
+                            >
+                              Remove
+                            </button>
+                          ) : null}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+
+              <div className="flex justify-between">
+                <button
+                  type="submit"
+                  className="text-xs border-2 border-black rounded-full px-2 hover:border-2 hover:border-white hover:bg-black hover:text-white"
+                >
+                  Submit
+                </button>
+
+                <label
+                  className="text-xs border-2 border-black rounded-full px-2 hover:border-2 hover:border-white hover:bg-black hover:text-white"
+                  onClick={toggle}
+                >
+                  Close
+                </label>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
+      ) : null}
     </div>
   );
 }
