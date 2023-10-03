@@ -8,6 +8,7 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
 
 export default function deleteGroup(group) {
+  const router = useRouter();
   const [modal, setModal] = useState(false);
   const [alert, setAlert] = useState(false);
   const [message, setMessage] = useState("");
@@ -35,10 +36,11 @@ export default function deleteGroup(group) {
       const deleteData = await fetchDelete(id);
       setAlert(true);
       setMessage(deleteData);
-      setModal(false);
     } catch (error) {
       console.log(error);
     }
+    router.refresh();
+    setModal(false);
   };
 
   const toggle = () => {
