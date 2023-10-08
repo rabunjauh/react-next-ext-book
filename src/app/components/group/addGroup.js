@@ -2,6 +2,8 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm, useFieldArray, Control, useWatch } from "react-hook-form";
+import Button from "@/app/components/button";
+import MessageAlert from "@/app/components/messageAlert";
 
 export default function AddGroup() {
   const [modal, setModal] = useState(false);
@@ -73,32 +75,25 @@ export default function AddGroup() {
   return (
     <div>
       {alert ? (
-        <div className="w-60 fixed top-5 right-1 bg-gray-400 text-white px-2 rounded-l-md h-10 flex justify-between items-center">
-          <span className="">{message}</span>
-          <button className="text-white font-thin" onClick={closeAlert}>
-            x
-          </button>
-        </div>
+        <MessageAlert messageValue={message} onClick={closeAlert} />
       ) : null}
-      <button
-        className="border-2 border-black rounded-lg px-2 hover:border-2 hover:border-white hover:bg-black hover:text-white"
+
+      <Button
+        style="border-2 border-black rounded-lg px-2 hover:border-2 hover:border-white hover:bg-black hover:text-white"
+        value="Add Group"
         onClick={toggle}
-      >
-        Add Group
-      </button>
+      />
 
       {modal ? (
         <div className="fixed inset-0 flex justify-center items-center transition-colors visible bg-black/70">
           <div className="bg-white p-5 rounded-lg">
             <h3 className="font-bold text-lg">Add New Group</h3>
             <div>
-              <button
-                type="button"
-                className="text-xs border-2 border-black rounded-full px-2 hover:border-2 hover:border-white hover:bg-black hover:text-white"
+              <Button
+                style="text-xs border-2 border-black rounded-full px-2 hover:border-2 hover:border-white hover:bg-black hover:text-white"
+                value="Append"
                 onClick={() => append()}
-              >
-                Append
-              </button>
+              />
             </div>
             <form onSubmit={handleSubmit(submit)}>
               <table className="table-auto border-collapse border border-slate-300 w-full my-2 shadow-md">
@@ -134,13 +129,11 @@ export default function AddGroup() {
                         </td>
                         <td className="border border-slate-300 px-2">
                           {index > 0 ? (
-                            <button
-                              type="button"
-                              className="text-xs border-2 px-2 border-black rounded-full hover:border-2 hover:border-white hover:bg-black hover:text-white"
+                            <Button
+                              style="text-xs border-2 px-2 border-black rounded-full hover:border-2 hover:border-white hover:bg-black hover:text-white"
+                              value="Remove"
                               onClick={() => remove(index)}
-                            >
-                              Remove
-                            </button>
+                            />
                           ) : null}
                         </td>
                       </tr>
@@ -157,12 +150,11 @@ export default function AddGroup() {
                   Submit
                 </button>
 
-                <label
-                  className="text-xs border-2 border-black rounded-full px-2 hover:border-2 hover:border-white hover:bg-black hover:text-white"
+                <Button
+                  style="text-xs border-2 border-black rounded-full px-2 hover:border-2 hover:border-white hover:bg-black hover:text-white"
+                  value="Close"
                   onClick={toggle}
-                >
-                  Close
-                </label>
+                />
               </div>
             </form>
           </div>

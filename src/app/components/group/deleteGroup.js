@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
+import MessageAlert from "@/app/components/messageAlert";
 config.autoAddCss = false;
 
 export default function deleteGroup(group) {
@@ -13,10 +14,6 @@ export default function deleteGroup(group) {
   const [alert, setAlert] = useState(false);
   const [message, setMessage] = useState("");
   const handleDelete = async (id) => {
-    // await fetch(`http://localhost:3000/group/${id}`, {
-    //   method: "DELETE",
-    // });
-
     const fetchDelete = (id) => {
       return fetch(`http://localhost:3000/group/${id}`, {
         method: "DELETE",
@@ -54,15 +51,10 @@ export default function deleteGroup(group) {
   return (
     <div>
       {alert ? (
-        <div className="w-60 fixed top-5 right-1 bg-gray-400 text-white px-2 rounded-l-md h-10 flex justify-between items-center">
-          <span className="">{message}</span>
-          <button className="text-white font-thin" onClick={closeAlert}>
-            x
-          </button>
-        </div>
+        <MessageAlert messageValue={message} onClick={closeAlert} />
       ) : null}
       <button
-        className="text-xs border-2 border-black rounded-full px-2 hover:border-2 hover:border-white hover:bg-black hover:text-white"
+        className="text-xs border border-black rounded-full px-2 hover:border hover:border-white hover:bg-black hover:text-white"
         onClick={toggle}
       >
         <FontAwesomeIcon icon={faTrashCan} /> Delete

@@ -28,11 +28,11 @@ export default async function viewGroup() {
 
   return (
     <>
-      <div className="md:ml-56 px-10 mt-5 pb-20">
+      <div className="md:ml-60 px-10 bg-white">
         <h1 className="text-5xl mb-10">Group</h1>
 
         <AddGroup />
-        <table className="table-auto border-collapse border border-slate-300 w-full mt-5 shadow-2xl">
+        <table className="table-auto border-collapse border border-slate-300 w-full mt-5 shadow-xl">
           <thead>
             <tr className="bg-gray-400">
               <th className="border border-slate-300 px-2">#</th>
@@ -45,7 +45,7 @@ export default async function viewGroup() {
           <tbody>
             {groups ? (
               groups.map((group, index) => (
-                <tr className="bg-gray-200" key={group.id}>
+                <tr key={group.id}>
                   <td className="border border-slate-300 px-2">{index + 1}</td>
                   <td className="border border-slate-300 px-2">
                     {group.description}

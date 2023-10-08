@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        {children}
+        <div className="bg-[#F4F6F9] h-full w-screen mb-56">{children}</div>
         <Footer />
       </body>
     </html>
