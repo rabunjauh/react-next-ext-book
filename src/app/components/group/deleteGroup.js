@@ -5,10 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
-import MessageAlert from "@/app/components/messageAlert";
+import MessageAlert from "@/app/components/MessageAlert";
 config.autoAddCss = false;
 
-export default function deleteGroup(group) {
+export default function DeleteGroup(group) {
   const router = useRouter();
   const [modal, setModal] = useState(false);
   const [alert, setAlert] = useState(false);

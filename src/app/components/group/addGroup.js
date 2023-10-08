@@ -2,8 +2,8 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm, useFieldArray, Control, useWatch } from "react-hook-form";
-import Button from "@/app/components/button";
-import MessageAlert from "@/app/components/messageAlert";
+import ButtonComponent from "@/app/components/ButtonComponent";
+import MessageAlert from "@/app/components/MessageAlert";
 
 export default function AddGroup() {
   const [modal, setModal] = useState(false);
@@ -78,18 +78,18 @@ export default function AddGroup() {
         <MessageAlert messageValue={message} onClick={closeAlert} />
       ) : null}
 
-      <Button
+      <ButtonComponent
         style="border-2 border-black rounded-lg px-2 hover:border-2 hover:border-white hover:bg-black hover:text-white"
         value="Add Group"
         onClick={toggle}
       />
 
       {modal ? (
-        <div className="fixed inset-0 flex justify-center items-center transition-colors visible bg-black/70">
+        <div className="fixed inset-0 flex justify-center items-center transition-colors visible bg-black/70 z-50 overflow-y-auto overflow-x-hidden pt-56">
           <div className="bg-white p-5 rounded-lg">
             <h3 className="font-bold text-lg">Add New Group</h3>
             <div>
-              <Button
+              <ButtonComponent
                 style="text-xs border-2 border-black rounded-full px-2 hover:border-2 hover:border-white hover:bg-black hover:text-white"
                 value="Append"
                 onClick={() => append()}
@@ -129,7 +129,7 @@ export default function AddGroup() {
                         </td>
                         <td className="border border-slate-300 px-2">
                           {index > 0 ? (
-                            <Button
+                            <ButtonComponent
                               style="text-xs border-2 px-2 border-black rounded-full hover:border-2 hover:border-white hover:bg-black hover:text-white"
                               value="Remove"
                               onClick={() => remove(index)}
@@ -150,7 +150,7 @@ export default function AddGroup() {
                   Submit
                 </button>
 
-                <Button
+                <ButtonComponent
                   style="text-xs border-2 border-black rounded-full px-2 hover:border-2 hover:border-white hover:bg-black hover:text-white"
                   value="Close"
                   onClick={toggle}

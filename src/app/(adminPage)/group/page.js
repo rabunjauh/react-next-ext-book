@@ -1,6 +1,7 @@
-import AddGroup from "@/app/components/group/addGroup";
+import AddGroup from "@/app/components/group/AddGroup";
 // import EditGroup from "@/app/components/group/editGroup";
-import DeleteGroup from "@/app/components/group/deleteGroup";
+import DeleteGroup from "@/app/components/group/DeleteGroup";
+import TableData from "@/app/components/TableData";
 
 export default async function viewGroup() {
   const getGroups = () => {
@@ -65,6 +66,8 @@ export default async function viewGroup() {
             )}
           </tbody>
         </table>
+
+        <TableData groups={groups} />
       </div>
     </>
   );
